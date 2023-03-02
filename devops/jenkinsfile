@@ -34,7 +34,7 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url=http://172.16.235.10:9000 -Dsonar.login=81f4edc34529bdb093757d1b3864efc96e7744aa'
+        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url=${SONARQUBE_HOST} -Dsonar.login=81f4edc34529bdb093757d1b3864efc96e7744aa'
       }
     }
 
