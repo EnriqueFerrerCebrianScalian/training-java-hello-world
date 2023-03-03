@@ -34,7 +34,15 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url=${SONARQUBE_HOST} -Dsonar.login=81f4edc34529bdb093757d1b3864efc96e7744aa'
+        sh 'echo "SONAR HOME: $SONARQUBE_HOST"'
+        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url=$SONARQUBE_HOST -Dsonar.login=81f4edc34529bdb093757d1b3864efc96e7744aa'
+      }
+    }
+
+    stage('SonarQubeFromPlugin') {
+      def scannerHome = tool 'SonarScanner 4.0';
+      withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
+        sh "${scannerHome}/bin/sonar-scanner"
       }
     }
 
@@ -46,7 +54,7 @@ pipeline {
         }
       }
       steps {
-      	sh 'mvn install'
+      	sh 'mvn install -DskipTests'
       }
     }
 
