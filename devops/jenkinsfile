@@ -7,7 +7,7 @@ pipeline {
 
   environment {
 	  DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-    TAG_NAME=getLastGitTag()
+    TAG_NAME="1.0.4-SNAPSHOT"//getLastGitTag()
     SONARQUBE_HOST_LOCAL="${env.SONARQUBE_HOST}"
 	}
 
@@ -40,7 +40,7 @@ pipeline {
       }
       steps {
         //sh 'echo "SONAR HOME: ${env.SONARQUBE_HOST}"'
-        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url=http://172.16.235.10:9000 -Dsonar.login=sqa_3dd5dd29c9a7d0876fdfe877df1a81ab54b43358'
+        sh 'mvn verify sonar:sonar -Dsonar.projectKey=java-example-jenkins -Dsonar.host.url="${SONARQUBE_HOST_LOCAL}" -Dsonar.login=sqa_3dd5dd29c9a7d0876fdfe877df1a81ab54b43358'
       }
     }
 
