@@ -1,7 +1,7 @@
 #!groovy
 
 //@Library('functions')_
-
+println("SONAR HOME: ${env.SONARQUBE_HOST}")
 
 pipeline {
 	agent any // Default Agent
@@ -10,6 +10,8 @@ pipeline {
 	  DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     //TAG_NAME=getLastGitTag()
 	}
+
+
 
 
   stages {
