@@ -19,7 +19,7 @@ class HelloWorldApplicationTests {
     void contextLoads() {
         // to ensure that controller is getting created inside the application context
         assertNotNull(helloWorldController);
-        assertEquals("Hello", helloWorldController.sendGreetings());
+        assertEquals("Hello World!", helloWorldController.sendGreetings());
     }
 
 }

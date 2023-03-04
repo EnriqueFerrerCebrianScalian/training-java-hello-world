@@ -7,13 +7,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldController {
 
-    @GetMapping(path = {"/hello", "/user/{message}"})
-    public String sendGreetings(@PathVariable(required=false,name="message") String message) {
-        if (message != null) {
-            return "Hello, " + message;
-        }
-        else { 
-            return "Hello"; 
-        }
+    // @GetMapping(path = {"/hello", "/user/{message}"})
+    // public String sendGreetings(@PathVariable(required=false,name="message") String message = null) {
+    //     if (message != null) {
+    //         return "Hello, " + message;
+    //     }
+    //     else { 
+    //         return "Hello"; 
+    //     }
+    // }
+
+    @GetMapping("/hello")
+    public String sendGreetings() {
+        return "Hello World!"; 
+        
     }
 }
