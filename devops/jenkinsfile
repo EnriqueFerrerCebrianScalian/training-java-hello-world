@@ -8,7 +8,7 @@ pipeline {
   environment {
 	  DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     TAG_NAME=getLastGitTag()
-    SONARQUBE_HOST_LOCAL=env.SONARQUBE_HOST
+    SONARQUBE_HOST_LOCAL="${env.SONARQUBE_HOST}"
 	}
 
   stages {
