@@ -1,7 +1,6 @@
 #!groovy
 
 //@Library('functions')_
-println("SONAR HOME: ${env.SONARQUBE_HOST}")
 
 pipeline {
 	agent any // Default Agent
@@ -9,9 +8,16 @@ pipeline {
   environment {
 	  DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     TAG_NAME=getLastGitTag()
+    SONARQUBE_HOST_LOCAL=${env.SONARQUBE_HOST}
 	}
 
   stages {
+
+    stage('List env vars') {
+      steps{
+				sh "printenv | sort"
+			}
+    }
 
     stage('Test') {
       // Specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the agent section is placed
@@ -60,7 +66,7 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        sh 'du -sh $WORKSPACE/target/*.jar'
+        sh 'ls $WORKSPACE/target/'
       	sh 'docker build -t scalian_training/java-app -f devops/Dockerfile --build-arg VERSION=$TAG_NAME .'
       }
     }
@@ -120,11 +126,9 @@ pipeline {
 
 
 def getLastGitTag() {
-    sh "git tag --sort version:refname | tail -1 > version.tmp"
+    sh "git tag --sort version:refname | head -n 1 > version.tmp"
     String tag = readFile 'version.tmp'
     echo "Branch: ${scm.branches[0].name}"
-
-
     echo "Tag, ${tag}." 
     return tag
 }
